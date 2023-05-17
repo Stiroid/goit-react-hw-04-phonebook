@@ -9,33 +9,9 @@ export default function App() {
   
   const [contacts, setContact] = useState(
     () => JSON.parse(window.localStorage.getItem('data')) ?? []
-    // [
-      // {id: 'id-1', name: 'Rosie Simpson', number: '459-12-56'},
-      // {id: 'id-2', name: 'Hermione Kline', number: '443-89-12'},
-      // {id: 'id-3', name: 'Eden Clements', number: '645-17-79'},
-      // {id: 'id-4', name: 'Annie Copeland', number: '227-91-26'},
-    // ]
   )
 
   const[filter, setFilter] = useState('')
-
-  // state = {
-  //   contacts: [
-  //     {id: 'id-1', name: 'Rosie Simpson', number: '459-12-56'},
-  //     {id: 'id-2', name: 'Hermione Kline', number: '443-89-12'},
-  //     {id: 'id-3', name: 'Eden Clements', number: '645-17-79'},
-  //     {id: 'id-4', name: 'Annie Copeland', number: '227-91-26'},
-  //   ],
-
-  //   filter: '',
-  // }
-
-  // componentDidUpdate(prevProps, prevState, snapshot) {
-  //     console.log("Updata")
-  //     if (this.state.contacts !== prevState.contacts){
-  //       localStorage.setItem("data", JSON.stringify(this.state.contacts))
-  //     }
-  // }
 
   const handleInputChange = evt => {
     setFilter(evt.currentTarget.value);
@@ -46,7 +22,6 @@ export default function App() {
     
     data.id = nanoid()
     console.log(data)
-    // localStorage.setItem(`${data.name}`, JSON.stringify(data))
 
     const checkContact = contacts.find(contact => contact.name === data.name)
     
@@ -54,7 +29,7 @@ export default function App() {
       ? alert(`${data.name} is already in the contacts`)
       : setContact( [...contacts, data])
 
-      // onFilterContact()
+
   }
 
   const onRemoveContact = (contactId) => {
@@ -71,31 +46,12 @@ export default function App() {
     )
   }
 
-
-  // useEffect(() => {
-  //   const contactData = localStorage.getItem("data")
-  //   const parsedUserContact = JSON.parse(contactData)
-  //   console.log(parsedUserContact)
-  //   setContact(parsedUserContact)
-  // }, []);
-
-
   useEffect(() => {
     localStorage.setItem("data", JSON.stringify(contacts))
     console.log(contacts)
   }, [contacts]);
 
 
-
-  // componentDidMount() {
-  //   const contactData = localStorage.getItem("data")
-  //   const parsedUserContact = JSON.parse(contactData)
-  //   console.log(parsedUserContact)
-
-  //   if(parsedUserContact !== null){
-  //     this.setState({contacts:parsedUserContact})
-  //   }
-  // }
 
   const filterContact = onFilterContact()
 
@@ -121,17 +77,26 @@ export default function App() {
                 onSubmit = {formSubmitHandler}
               />
 
-            <h2>Contacts</h2>
+{
+                filterContact.length > 0 &&
+                
+                (
+                <div>
+                  <h2>Contacts</h2>
 
-              <Filter 
-                formSubmitHandler= {handleInputChange}
-                filter={filter}
-              />
+                <Filter 
+                  formSubmitHandler= {this.handleInputChange}
+                  filter={this.state.filter}
+                />
 
-              <ContactList
-                onRemoveContact = {onRemoveContact}
-                filteredContacts = {filterContact}
-              />
+                <ContactList
+                  onRemoveContact = {this.onRemoveContact}
+                  filteredContacts = {filterContact}
+                />
+                </div>
+                )
+              }
+            
 
           </div>
       </div>
