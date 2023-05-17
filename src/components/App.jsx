@@ -85,12 +85,12 @@ export default function App() {
                   <h2>Contacts</h2>
 
                 <Filter 
-                  formSubmitHandler= {this.handleInputChange}
-                  filter={this.state.filter}
+                  formSubmitHandler= {handleInputChange}
+                  filter={filter}
                 />
 
                 <ContactList
-                  onRemoveContact = {this.onRemoveContact}
+                  onRemoveContact = {onRemoveContact}
                   filteredContacts = {filterContact}
                 />
                 </div>
